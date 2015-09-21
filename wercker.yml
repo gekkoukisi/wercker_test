@@ -2,7 +2,7 @@
 # Docker Hub https://registry.hub.docker.com/_/debian/
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-box: debian
+box: phusion/passenger-ruby22
 # You can also use services such as databases. Read more on our dev center:
 # http://devcenter.wercker.com/docs/services/index.html
 # services:
@@ -24,12 +24,8 @@ build:
         name: echo
         code: |
           echo "hello world!"
-  after-steps
+  after-steps:
     - script:
-        name: Notify to Slack
+        name: Notify result to idobata
         code: |
-            after-steps:
-        - script:
-            name: Notify result to idobata
-            code: |
-                 curl -X POST --data-urlencode 'payload={"channel": "#aa", "username": "wercker", "text": "wercker is CI  だよ"}' https://hooks.slack.com/services/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
+            curl -X POST --data-urlencode 'payload={"channel": "#aa", "username": "wercker", "text": "wercker is CI  だよ"}' https://hooks.slack.com/services/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
