@@ -24,4 +24,12 @@ build:
         name: echo
         code: |
           echo "hello world!"
-
+  after-steps
+    - script:
+        name: Notify to Slack
+        code: |
+            after-steps:
+        - script:
+            name: Notify result to idobata
+            code: |
+                 curl -X POST --data-urlencode 'payload={"channel": "#aa", "username": "wercker", "text": "wercker is CI  だよ"}' https://hooks.slack.com/services/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
